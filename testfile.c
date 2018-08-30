@@ -3,5 +3,6 @@
 
 int main () {
 	printf("Hello, world~");
+    printf("I am apple user~");
 	return 0;
 }
