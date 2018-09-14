@@ -1,12 +1,17 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <math.h>
 
 using namespace std;
 //#define BASIC
 //#define WHILE
 //#define FOR
-#define DOWHILE
+//#define DOWHILE
+//#define NEST
+//#define BREAK
+//#define CONTINUE
+#define GOTO
 
 int main()
 {
@@ -76,6 +81,73 @@ int main()
         a = a + 1;
         break;
     } while (a < 20);
+#endif
+
+#ifdef NEST
+    int i, j;
+    for(i = 2; i < 100; i++) {
+        for (j = 2; j <= (i / j); j++) {
+            if(! (i % j)) {
+                break;
+            }
+        }
+        if (j > (i / j)) {
+            cout << i << " 是质数\n";
+        }
+    }
+    cout << "###############################" << endl;
+
+    int m, n;
+    for (m = 2; m < 100; m++)
+    {
+        for (n = 2; n <= (double)sqrt((double)m); n++)
+        {
+            if (!(m%n))
+                break;
+        }
+        if (n > (double)sqrt((double)m))
+            cout << m << " 是质数\n";
+    }
+#endif
+
+#ifdef BREAK
+    int a = 10;
+    do {
+        cout << "value of a is: " << a << endl;
+        a = a + 1;
+        if (a > 15)
+        {
+            break;
+        }
+    } while (a < 20);
+#endif
+
+#ifdef CONTINUE
+    int a = 10;
+
+    do {
+        if (a == 15) {
+            a = a + 1;
+            continue;
+        }
+        cout << "value of a is: " << a << endl;
+        a = a + 1;
+    } while (a < 20);
+#endif
+
+#ifdef GOTO
+    int a = 10;
+
+LOOP:do
+     {
+        if (a == 15)
+        {
+            a = a + 1;
+            goto LOOP;
+        }
+        cout << "value of a is: " << a << endl;
+        a = a + 1;
+     } while (a < 20);
 #endif
 
     return 0;
