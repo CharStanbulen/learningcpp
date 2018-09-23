@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include <iomanip>
@@ -8,7 +9,12 @@ using std::setw;
 //#define DYADIC
 //数组名是一个指向数组中第一个元素的常量指针
 //#define POINTER
-#define FUNCTION
+//#define FUNCTION
+//#define VECTOR
+//可以用一个变量表达式来表示数组的下标
+//#define CONSTVAR
+#define ARRLENGTH
+
 #ifdef FUNCTION
 //数组作为参数传递可以是一个定长或不定长的数组，也可以是一个指针。
 double getAverage(int arr[], int size)
@@ -29,8 +35,44 @@ double getAverage(int arr[], int size)
 }
 #endif
 
-int main()
+#ifdef ARRLENGTH
+template <class T>
+int length(T& arr)
 {
+	return sizeof(arr) /  sizeof(arr[0]);
+}
+#endif
+int main() {
+#ifdef ARRLENGTH
+	int arr[] = {1, 5, 9, 10, 9, 2};
+	cout << "arr length is: " << length(arr) << endl;
+#endif
+
+#ifdef CONSTVAR
+	const int a = 19;
+	long b[a];
+	
+	const int c = 19;
+	long d[c + 5];
+
+	//如下不合法
+	int e = 19;
+	long f[e + 5];
+#endif
+#ifdef VECTOR
+	//用vector（向量）来定义不固定大小的字符数组
+	vector<int> vec;
+	int i;
+
+	cout << "vector size = " << vec.size() << endl;
+
+	for (i = 0; i < 5; i++)
+	{
+		vec.push_back(i);
+	}
+	
+	cout << "extended vector size = " << vec.size() << endl;
+#endif
 #ifdef BASIC
 	int n[10];
 
