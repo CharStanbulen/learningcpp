@@ -1,10 +1,14 @@
 #include <iostream>
-
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 //#define BASIC
 //#define OPR
-#define ARRPTR
+//#define ARRPTR
+//#define PARAM
+//#define RE
+#define PPTR
 
 #ifdef ARRPTR
 void pointerArray4Char();
@@ -38,8 +42,96 @@ int a(int b)
 	return ++b;
 }
 #endif
+
+#ifdef PARAM
+void getSecond(unsigned long *par);
+void getSecond(unsigned long *par)
+{
+	cout << "Value of *par=" << *par << endl;
+	cout << "Value of par=" << par << endl;
+	cout << "Value of &par=" << &par << endl;
+
+	*par = time(NULL);
+	return;
+}
+
+double getAverage(int *arr, int size)
+{
+	int i, sum = 0;
+	double avg;
+
+	for (i = 0; i < size; ++i)
+	{
+		sum += arr[i];
+	}
+
+	avg = double(sum) / size;
+
+	return avg;
+}
+#endif
+
+#ifdef RE
+//c++不支持在函数外返回局部变量的地址，除非定义局部变量为static
+int *getRandom()
+{
+	static int r[10];
+	srand((unsigned)time(NULL));
+	for(int i = 0; i < 10; ++i)
+	{
+		r[i] = rand();
+		cout << r[i] << endl;
+	}
+
+	return r;
+}
+#endif
+
 int main ()
 {
+#ifdef PPTR
+	//多级指针
+	int var;
+	int *ptr;
+	//指向指针的指针地址
+	int **pptr;
+
+	var = 3000;
+	ptr = &var;
+	pptr = &ptr;
+	
+	cout << "value of var: " << var << endl;
+	cout << "value of *ptr: " << *ptr << endl;
+	cout << "value of **pptr: " << **pptr << endl;
+#endif
+#ifdef RE
+	int *p;
+	
+	p = getRandom();
+	for (int i = 0; i < 10; i++)
+	{
+		cout << "*(p + " << i << ") : ";
+		cout << *(p + i) <<  endl;
+	}
+#endif
+#ifdef PARAM
+	unsigned long sec;
+	cout << "Value of sec = :" << sec << endl;
+	cout << "Value of &sec = :" << &sec << endl;
+
+	getSecond(&sec);
+
+	cout << "Number of seconds : " << sec << endl;
+	
+	cout << "###############################" << endl;
+
+	int balance[5] = {1000, 2, 3, 17, 50};
+	double avg;
+
+	avg = getAverage(balance, 5);
+	cout << "Average value is: "	<< avg << endl;
+#endif
+
 #ifdef ARRPTR
 	const int MAX = 3;
 	int var[MAX] = {10, 100, 200};
@@ -78,8 +170,8 @@ int main ()
 	
 	cout << "###############################" << endl;
 	pointerArray4Char();
-
 #endif
+
 #ifdef BASIC
 	int var1;
 	char  var2[10];
