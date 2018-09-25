@@ -1,10 +1,15 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 //#define BASIC
 //#define MEMBER
-#define PROTECT
+//#define PROTECT
+//#define CONSTRU
+//#define CONSTRU_PARAM
+//#define DESCTRUCTOR
+#define DEMO1
 
 #ifdef BASIC
 class Box
@@ -78,8 +83,160 @@ void SmallBox::setSmallWidth(double wid)
 }
 #endif
 
+#ifdef CONSTRU
+class Line
+{
+    public:
+        void setLength (double len);
+        double getLength(void);
+        Line(); //这是构造函数
+    private:
+        double length;
+};
+Line::Line(void)
+{
+    cout << "Object is being created" << endl;
+}
+
+void Line::setLength(double len)
+{
+    length = len;
+}
+
+double Line::getLength(void)
+{
+    return length;
+}
+#endif
+
+#ifdef CONSTRU_PARAM
+class Line
+{
+    public:
+        void setLength(double len);
+        double getLength(void);
+        Line(double len);
+
+    private:
+        double length;
+};
+
+Line::Line(double len)
+{
+    cout << "Object is being created, length = " << len << endl;
+    length = len;
+}
+
+void Line::setLength(double len)
+{
+    length = len;
+}
+
+double Line::getLength(void)
+{
+    return length;
+}
+#endif
+
+#ifdef DESCTRUCTOR
+class Line
+{
+    public:
+        void setLength(double len);
+        double getLength(void);
+        Line();
+        ~Line();
+    private:
+        double length;
+};
+
+Line::Line(void)
+{
+    cout << "Object is being created" << endl;
+}
+Line::~Line(void)
+{
+    cout << "Object is being deleted" << endl;
+}
+void Line::setLength(double len)
+{
+    length = len;
+}
+double Line::getLength(void)
+{
+    return length;
+}
+#endif
+
+#ifdef DEMO1
+class Student
+{
+    public:
+        string name;
+        string number;
+        char X;
+        int year;
+        Student(string, string, char, int);
+        void xianshi(void);
+};
+
+Student::Student(string N, string n, char x, int y)
+{
+    name = N;
+    number = n;
+    X = x;
+    year = y;
+}
+
+void Student::xianshi()
+{
+    cout << name << endl;
+    cout << number << endl;
+    cout << X << endl;
+    cout << year << endl;
+}
+#endif
+
 int main()
 {
+#ifdef DEMO1
+    cout << "input name: ";
+    string N;
+    cin >> N;
+    cout << "input no: ";
+    string n;
+    cin >> n;
+    cout << "input sex (M or W) :";
+    char x;
+    cin >> x;
+    cout << "input age: ";
+    int y;
+    cin >> y;
+    
+    Student S(N, n, x, y);
+    S.xianshi();
+#endif
+#ifdef DESCTRUCTOR
+//析构函数当对象被销毁释放时执行
+    Line line;
+    
+    line.setLength(6.0);
+    cout << "Length of line : " << line.getLength() << endl;
+#endif
+
+#ifdef CONSTRU_PARAM
+    //给构造函数传入参数
+    Line line(10.0);
+    cout << "Length of line : " << line.getLength() << endl;
+    line.setLength(6.0);
+    cout << "Length of line : " << line.getLength() << endl;
+#endif
+#ifdef CONSTRU
+    Line line;
+    
+    line.setLength(6.0);
+    cout << "Length of line : " << line.getLength() << endl;
+#endif
 #ifdef PROTECT
     SmallBox box;
 
