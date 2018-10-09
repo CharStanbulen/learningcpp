@@ -47,7 +47,7 @@ public:
     }
 private:
     string message_;
-}
+};
 class MyExceptionD : public MyException
 {
 public:
@@ -60,7 +60,7 @@ public:
     {
         cout << "~MyExceptionD ..." << endl;
     }
-}
+};
 
 void fun(int n) throw(int, MyException, MyExceptionD)
 {
@@ -88,14 +88,14 @@ int main()
 #ifdef DEMO3
     try
     {
-        fun(2)
+        fun(2);
     }
     catch (int n)
     {
         cout << "catch int ..." << endl;
         cout << "n=" << n << endl;
     }
-    catch (MyException &e)
+    catch (MyExceptionD &e)
     {
         cout << "catch MyExceptionD ..." << endl;
         cout << e.what() << endl;
